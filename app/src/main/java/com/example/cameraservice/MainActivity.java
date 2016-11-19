@@ -45,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                requestPermissions(new String[]{Manifest.permission.CAMERA},
-                        101);
-            }
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (checkSelfPermission(Manifest.permission.CAMERA)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//
+//                requestPermissions(new String[]{Manifest.permission.CAMERA},
+//                        101);
+//            }
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -124,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void upload(String aa) {
         try {
+
+            // the following code is referenced from
+            // http://www.myandroidtuts.com/2012/11/upload-video-in-server.html
             int serverResponseCode = 0;
             HttpURLConnection conn = null;
             DataOutputStream dos = null;
@@ -209,18 +212,20 @@ public class MainActivity extends AppCompatActivity {
 
         cam.takePicture(null,null,mcall);
     }
-    private boolean safeCameraOpen(int id){
-        boolean co =false;
-        try {
-            releaseCam();
-            cam = Camera.open(id);
-            co = (cam!=null);
-        } catch(Exception e){
-            Log.e(getString(R.string.app_name), "Fail");
-            e.printStackTrace();
-        }
-        return co;
-    }
+
+
+//    private boolean safeCameraOpen(int id){
+//        boolean co =false;
+//        try {
+//            releaseCam();
+//            cam = Camera.open(id);
+//            co = (cam!=null);
+//        } catch(Exception e){
+//            Log.e(getString(R.string.app_name), "Fail");
+//            e.printStackTrace();
+//        }
+//        return co;
+//    }
 
     private void releaseCam(){
         if(cam !=null){

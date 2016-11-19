@@ -7,9 +7,9 @@
     >
     <FrameLayout
         android:id="@+id/camera_preview"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="500dp" />
+        android:layout_height="1dp" />
 
     <Button
         android:id="@+id/button_capture"
