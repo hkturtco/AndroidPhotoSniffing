@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -45,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+//    The following code is to grant the permission on Android 6
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //            if (checkSelfPermission(Manifest.permission.CAMERA)
 //                    != PackageManager.PERMISSION_GRANTED) {
@@ -53,13 +55,11 @@ public class MainActivity extends AppCompatActivity {
 //                        101);
 //            }
 //        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-
-
 
         int cameraCount = 0;
         cam = null;
@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
                     out.write(data);
                     out.close();
                 } catch (FileNotFoundException e) {
-                    Log.e(getString(R.string.app_name), "Fail1");
+                    Log.e(getString(R.string.app_name), "FileNotFoundException");
                 } catch (IOException e) {
-                    Log.e(getString(R.string.app_name), "Fail2");
+                    Log.e(getString(R.string.app_name), "IOException");
                 }
                 releaseCam();
                 String path = "/sdcard/image"+rn+".jpg";
@@ -113,11 +113,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Log.e("unique","unique1");
-
         //cam.takePicture(null,null,mcall);
         //cam.stopPreview();
-        Log.e("unique","unique3");
         //releaseCam();
 
     }
@@ -209,8 +206,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void takefoto(View v){
-
-        cam.takePicture(null,null,mcall);
+        try {
+            cam.takePicture(null, null, mcall);
+        } catch (Exception e){
+            Log.e("CaptureImage", "Error capturing image", e);
+        }
     }
 
 
